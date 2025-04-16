@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Conversational Book Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Conversational Book Assistant</h1>
+
+    
+
+    <form id="qaForm" method="POST" action="/ask" enctype="multipart/form-data">
+      <label for="pdf_file">Upload the BOOK:</label>
+      <input type="file" name="pdf_file" accept=".pdf"><br><br>
+
+      <div class="controls">
+        <button type="button" id="record">Record Question</button>
+        <button type="button" id="stop" disabled>Stop</button>
+        <span id="timer">00:00</span><br>
+        <audio id="audio" controls style="display:none;"></audio>
+      </div>
+
+      <input type="hidden" name="audio_data" id="audioData">
+      <button type="submit">Submit Question</button>
+    </form>
+
+    {% if pdf_name %}
+      <h2>Currently Reading: <em>{{ pdf_name }}</em></h2>
+    {% endif %}
+
+    {% if answer %}
+      <div class="response">
+        <h3>LLM Response:</h3>
+        <!-- <p>{{ answer }}</p> -->
+        <audio controls>
+          <source src="{{ url_for('serve_file', filename=audio_file) }}" type="audio/wav">
+        </audio>
+      </div>
+    {% endif %}
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
