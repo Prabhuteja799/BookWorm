@@ -4,4 +4,5 @@ gunicorn==22.0.0
 google-cloud-speech==2.27.0
 google-cloud-texttospeech==2.17.2
 google-cloud-language==2.15.1
+google-generativeai==0.8.3
 
